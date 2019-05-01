@@ -52,6 +52,22 @@ function discountToTotalAmount() {
 
 }
 
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
+function checkDigitWithDot(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127 && keyCode != 46) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
 </script>
 
 </head>
@@ -231,11 +247,11 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field7"><span>Quantity <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="quantity" id="quantity" value="${expenseProduct.quantity}" onchange="quantityToTotalPrice(); discountToTotalAmount();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="quantity" id="quantity" value="${expenseProduct.quantity}" onchange="quantityToTotalPrice(); discountToTotalAmount();" onkeypress="return checkDigit(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field8"><span>Price <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="price" id="price" value="${expenseProduct.price}" onchange="quantityToTotalPrice(); discountToTotalAmount();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="price" id="price" value="${expenseProduct.price}" onchange="quantityToTotalPrice(); discountToTotalAmount();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			</div>
@@ -249,7 +265,7 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field10"><span>Discount Amount <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="discount_amt" id="discount_amt" value="${expenseProduct.discount_amt}" onchange="discountToTotalAmount();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="discount_amt" id="discount_amt" value="${expenseProduct.discount_amt}" onchange="discountToTotalAmount();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field11"><span>Total Amount BDT. <span class="required">*</span></span>

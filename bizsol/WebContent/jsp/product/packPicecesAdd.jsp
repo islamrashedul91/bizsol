@@ -17,6 +17,16 @@ if (session.getAttribute("username") == null)
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>bizsol</title>
 <link rel="stylesheet" 	href="${pageContext.request.contextPath}/css/table.css">
+
+<script language="JavaScript">
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+</script>
 </head>
 <body>
 <%
@@ -97,11 +107,11 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field3"><span>Pack Size </span>
-				<input type="text" class="input-field" name="pack_size" id="pack_size" value="${packPiece.pack_size}"  maxlength=25 size=40 /> 
+				<input type="text" class="input-field" name="pack_size" id="pack_size" value="${packPiece.pack_size}"  maxlength=25 size=40 onkeypress="return checkDigit(event);" /> 
 			</label>
 			
 			<label for="field4"><span>Pieces </span>
-				<input type="text" class="input-field" name="piceces" id="piceces" value="${packPiece.piceces}"  maxlength=10 size=40 /> 
+				<input type="text" class="input-field" name="piceces" id="piceces" value="${packPiece.piceces}"  maxlength=10 size=40 onkeypress="return checkDigit(event);" /> 
 			</label>
 			
 			<%

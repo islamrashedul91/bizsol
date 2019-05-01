@@ -100,6 +100,22 @@ function discountToTotalAmount() {
 
 }
 
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
+function checkDigitWithDot(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127 && keyCode != 46) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
 </script>
 
 </head>
@@ -314,7 +330,7 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field12"><span>Order Quantity <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="order_quantity" id="order_quantity" value="${requisitionProduct.order_quantity}" onchange="quantityToTotalMRP(); discountToTotalAmount();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="order_quantity" id="order_quantity" value="${requisitionProduct.order_quantity}" onchange="quantityToTotalMRP(); discountToTotalAmount();" onkeypress="return checkDigit(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field13"><span>MRP <span class="required">*</span></span>
@@ -326,7 +342,7 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field15"><span>Discount Amount <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="discount_amt" id="discount_amt" value="${requisitionProduct.discount_amt}" onchange="discountToTotalAmount();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="discount_amt" id="discount_amt" value="${requisitionProduct.discount_amt}" onchange="discountToTotalAmount();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field16"><span>Total Amount BDT. <span class="required">*</span></span>

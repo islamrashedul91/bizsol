@@ -18,6 +18,17 @@ if (session.getAttribute("username") == null)
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>bizsol</title>
 <link rel="stylesheet" 	href="${pageContext.request.contextPath}/css/table.css">
+
+<script language="JavaScript">
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+</script>
+
 </head>
 <body>
 <%
@@ -137,7 +148,7 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field10"><span>Date of Birth <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="dob" id="dob" value="${salesmanInfo.dob}"  maxlength=25 size=40 required /> 
+				<input type="text" class="input-field-60" name="dob" id="dob" value="${salesmanInfo.dob}" placeholder="yyyyMMdd" onkeypress="return checkDigit(event);" maxlength=25 size=40 required /> 
 			</label>
 			
 			</div>
@@ -163,7 +174,7 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field15"><span>Mobile <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="mobile" id="mobile" value="${salesmanInfo.mobile}"  maxlength=15 size=40 required /> 
+				<input type="text" class="input-field-60" name="mobile" id="mobile" value="${salesmanInfo.mobile}" onkeypress="return checkDigit(event);" maxlength=15 size=40 required /> 
 			</label>
 			
 			<label for="field16"><span>Email </span>

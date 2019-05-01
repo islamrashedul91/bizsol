@@ -236,6 +236,22 @@ function checkSalesRate() {
 	}
 }
 
+function checkDigitWithDot(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127 && keyCode != 46) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+
 </script>
 
 </head>
@@ -518,31 +534,31 @@ String selectedPackPicecesId = (String) request.getAttribute("selectedPackPicece
 			</label>
 			
 			<label for="field16"><span>Rate Per Piece <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="rate_per_piceces" id="rate_per_piceces" value="${product.rate_per_piceces}" onchange="perPiecesToPerBox();"  maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="rate_per_piceces" id="rate_per_piceces" value="${product.rate_per_piceces}" onchange="perPiecesToPerBox();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field17"><span>Rate Per Box </span>
-				<input type="text" class="input-field-60" name="rate_per_box" id="rate_per_box" value="${product.rate_per_box}" onchange="perBoxToPerPieces();" maxlength=10 size=40 /> 
+				<input type="text" class="input-field-60" name="rate_per_box" id="rate_per_box" value="${product.rate_per_box}" onchange="perBoxToPerPieces();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 /> 
 			</label>
 			
 			<label for="field18"><span>TP </span>
-				<input type="text" class="input-field-60" name="tp_price" id="tp_price" value="${product.tp_price}" onchange="tpPriceToTotalTpPrice();tpPriceToMrpPrice();totalTpPriceToTotalMrpPrice();" maxlength=10 size=40 /> 
+				<input type="text" class="input-field-60" name="tp_price" id="tp_price" value="${product.tp_price}" onchange="tpPriceToTotalTpPrice();tpPriceToMrpPrice();totalTpPriceToTotalMrpPrice();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 /> 
 			</label>
 			
 			<label for="field19"><span>MRP <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="mrp_price" id="mrp_price" value="${product.mrp_price}" onchange="mrpPriceToTotalMrpPrice();mrpPriceToTpPrice();tpPriceToTotalTpPrice();" maxlength=10 size=40 required /> 
+				<input type="text" class="input-field-60" name="mrp_price" id="mrp_price" value="${product.mrp_price}" onchange="mrpPriceToTotalMrpPrice();mrpPriceToTpPrice();tpPriceToTotalTpPrice();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 required /> 
 			</label>
 			
 			<label for="field20"><span>Total TP </span>
-				<input type="text" class="input-field-60" name="total_tp_price" id="total_tp_price" value="${product.total_tp_price}" onchange="totalTpPriceToTpPrice();tpPriceToMrpPrice();totalTpPriceToTotalMrpPrice();" maxlength=10 size=40 /> 
+				<input type="text" class="input-field-60" name="total_tp_price" id="total_tp_price" value="${product.total_tp_price}" onchange="totalTpPriceToTpPrice();tpPriceToMrpPrice();totalTpPriceToTotalMrpPrice();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 /> 
 			</label>
 			
 			<label for="field21"><span>Total MRP </span>
-				<input type="text" class="input-field-60" name="total_mrp_price" id="total_mrp_price" value="${product.total_mrp_price}" onchange="totalMrpPriceToMrpPrice();mrpPriceToTpPrice();tpPriceToTotalTpPrice();" maxlength=10 size=40 /> 
+				<input type="text" class="input-field-60" name="total_mrp_price" id="total_mrp_price" value="${product.total_mrp_price}" onchange="totalMrpPriceToMrpPrice();mrpPriceToTpPrice();tpPriceToTotalTpPrice();" onkeypress="return checkDigitWithDot(event);" maxlength=10 size=40 /> 
 			</label>
 			
 			<label for="field22"><span>Stock <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="stock" id="stock" value="${product.stock}"  maxlength=25 size=40 required /> 
+				<input type="text" class="input-field-60" name="stock" id="stock" value="${product.stock}" onkeypress="return checkDigit(event);" maxlength=25 size=40 required /> 
 			</label>
 			
 			<label for="field23"><span>Bonus ID </span>

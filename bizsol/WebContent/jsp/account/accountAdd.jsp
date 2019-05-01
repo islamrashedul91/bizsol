@@ -17,6 +17,17 @@ if (session.getAttribute("username") == null)
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>bizsol</title>
 <link rel="stylesheet" 	href="${pageContext.request.contextPath}/css/table.css">
+
+<script language="JavaScript">
+function checkDigit(event) {
+    var keyCode = (event.which) ? event.which : event.keyCode
+	if((keyCode <48 || keyCode > 57) && keyCode != 37 && keyCode != 39  && keyCode != 8 && keyCode != 127 && keyCode != 46) {
+        alert("Please input number only !!!");
+        return false;
+    }
+}
+</script>
+
 </head>
 <body>
 <%
@@ -121,11 +132,11 @@ String strDate = formatter.format(date);
 			</label>
 			
 			<label for="field5"><span>Previous Balance <span class="required">*</span></span>
-				<input type="text" class="input-field" name="previous_balance" id="previous_balance" value="${account.previous_balance}"  maxlength=10 size=40 required /> 
+				<input type="text" class="input-field" name="previous_balance" id="previous_balance" value="${account.previous_balance}"  maxlength=10 size=40 required onkeypress="return checkDigit(event);" /> 
 			</label>
 			
 			<label for="field6"><span>Current Balance <span class="required">*</span></span>
-				<input type="text" class="input-field" name="current_balance" id="current_balance" value="${account.current_balance}"  maxlength=10 size=40 required /> 
+				<input type="text" class="input-field" name="current_balance" id="current_balance" value="${account.current_balance}"  maxlength=10 size=40 required onkeypress="return checkDigit(event);" /> 
 			</label>
 			
 			<%
