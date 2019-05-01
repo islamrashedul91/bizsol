@@ -61,24 +61,24 @@ function getRadioValue()
 	}
 	
 	//for delete [S]
-	var deletePathWithIdValue = "${pageContext.request.contextPath}/CustomerPurchaseMainController?action=delete&purchase_id="+idValue;
+	//var deletePathWithIdValue = "${pageContext.request.contextPath}/CustomerPurchaseMainController?action=delete&purchase_id="+idValue;
 	//for delete [E]
 	//for enquiry [S]
 	var enquiryPathWithIdValue = "${pageContext.request.contextPath}/CustomerPurchaseMainController?action=enquiry&purchase_id="+idValue;
 	//for enquiry [E]
 	//for cancel [S]
-	var cancelPathWithIdValue = "${pageContext.request.contextPath}/CustomerPurchaseMainController?action=cancel&purchase_id="+idValue;
+	//var cancelPathWithIdValue = "${pageContext.request.contextPath}/CustomerPurchaseMainController?action=cancel&purchase_id="+idValue;
 	//for cancel [E]
 	
 	if (idValue !=null) {
 		//for delete [S]
-		document.getElementById('delete').href = deletePathWithIdValue;
+		//document.getElementById('delete').href = deletePathWithIdValue;
 		//for delete [E]
 		//for enquiry [S]
 		document.getElementById('enquiry').href = enquiryPathWithIdValue;
 		//for enquiry [E]
 		//for cancel [S]
-		document.getElementById('cancel').href = cancelPathWithIdValue;
+		//document.getElementById('cancel').href = cancelPathWithIdValue;
 		//for cancel [E]
 	} else {
 		alert("Please select a ID !!");
@@ -168,8 +168,8 @@ String message = (String) request.getAttribute("success");
 				<tr>
 					<td><hr align=left width="100%" color=#003399>
 					<br>
-					<a id="cancel" Class ="button" href="" onclick="javascript: getRadioValue();">cancel</a>
-					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a>
+					<!-- <a id="cancel" Class ="button" href="" onclick="javascript: getRadioValue();">cancel</a>
+					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a> -->
 					<a id="enquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
 					<a Class ="button" href="${pageContext.request.contextPath}/base.jsp">Return</a></td>
 				</tr>

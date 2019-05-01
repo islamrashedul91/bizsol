@@ -50,7 +50,7 @@ function getRadioValue()
 	//var updatePathWithIdValue = "${pageContext.request.contextPath}/DayWiseAccountBalanceController?action=edit&day_wise_balance_id="+idValue;
 	//for update [E]
 	//for delete [S]
-	var deletePathWithIdValue = "${pageContext.request.contextPath}/ProfitLossController?action=delete&profit_loss_id="+idValue;
+	//var deletePathWithIdValue = "${pageContext.request.contextPath}/ProfitLossController?action=delete&profit_loss_id="+idValue;
 	//for delete [E]
 	//for enquiry [S]
 	var enquiryPathWithIdValue = "${pageContext.request.contextPath}/ProfitLossController?action=enquiry&profit_loss_id="+idValue;
@@ -61,7 +61,7 @@ function getRadioValue()
 		//document.getElementById('update').href = updatePathWithIdValue;
 		//for update [E]
 		//for delete [S]
-		document.getElementById('delete').href = deletePathWithIdValue;
+		//document.getElementById('delete').href = deletePathWithIdValue;
 		//for delete [E]
 		//for enquiry [S]
 		document.getElementById('enquiry').href = enquiryPathWithIdValue;
@@ -143,7 +143,7 @@ String message = (String) request.getAttribute("success");
 				<tr>
 					<td><hr align=left width="100%" color=#003399>
 					<br>
-					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a>
+					<!-- <a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a> -->
 					<a id="enquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
 					<a Class ="button" href="${pageContext.request.contextPath}/base.jsp">Return</a></td>
 				</tr>
