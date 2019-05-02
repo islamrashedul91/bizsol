@@ -94,7 +94,14 @@ function brandToProduct() {
 	var stength = document.getElementById('stength').value;
 	var productType = document.getElementById('product_type').value;
 	
-	document.getElementById('product_name').value = brandName+" "+stength+" "+productType;
+	// if stength is zero than no need add [S]
+	//document.getElementById('product_name').value = brandName+" "+stength+" "+productType;
+	if (stength == 0){
+		document.getElementById('product_name').value = brandName+" "+productType;
+	} else {
+		document.getElementById('product_name').value = brandName+" "+stength+" "+productType;
+	}
+	// if stength is zero than no need add [S]	
 
 }
 
