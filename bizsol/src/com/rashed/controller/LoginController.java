@@ -101,7 +101,7 @@ public class LoginController extends HttpServlet {
 					session.setAttribute("ownerInfos", oidao.getOwnerInfoByMobile(userid));
 					//String ownerId = oidao.getOwnerInfoByMobile(userid).getOwner_id();
 					session.setAttribute("ownerId", oidao.getOwnerInfoByMobile(userid).getOwner_id());
-					session.setAttribute("ownerName", oidao.getOwnerInfoByMobile(userid).getOwner_name());
+					session.setAttribute("loginUserName", oidao.getOwnerInfoByMobile(userid).getOwner_name());
 					// display name for specific owner [E]
 					
 					RequestDispatcher rd = request.getRequestDispatcher("base.jsp");

@@ -174,7 +174,7 @@ if (session.getAttribute("username") == null)
 		<div class="rightnav">
 			<ul>
 				<li class="dropdown"><a href="javascript:void(0)"
-					class="dropbtn"><span class="merchant-user">${ownerName}&nbsp;<i
+					class="dropbtn"><span class="merchant-user">${loginUserName}&nbsp;<i
 							class="fa fa-angle-down"></i></span></a>
 					<div class="dropdown-content">
 						<!-- <a href="#"><span><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</span></a> -->
