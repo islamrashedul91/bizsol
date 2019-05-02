@@ -21,7 +21,8 @@ html, body {
 	background: #f2f2f2;
 	z-index: -1;
 	/* background-image: url("../images/bg.jpg"); */
-	background-image: url("../images/pg_bg.PNG");
+	/* background-image: url("../images/pg_bg.PNG"); */
+	background-image: url("../images/login_cover.PNG");
 	/* Full height */
 	height: 100%;
 	/* Center and scale the image nicely */
