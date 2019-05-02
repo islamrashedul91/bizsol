@@ -446,7 +446,7 @@ public class CustomerTransactionProductDAO {
 												String strProductName, String strPackType,String strPackSize, int intPieces, String strBonusId,
 												String strBonusName, String strOrderPack, int intOrderQuantity, double doubleMrp, double doubleTotalMrp,
 												double doubleDiscount, double doubleTotalAmount, String strOrderStatus, String strDeliveryStatus,
-												String strCreated, String strUpdated){
+												String strCreated, String strUpdated, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("INSERT INTO customer_transaction_product(transaction_product_id, transaction_id, transaction_type, requisition_product_id, requisition_id, date_time, product_id, product_name, pack_type, pack_size, piceces, bonus_id, bonus_name, order_pack, order_quantity, mrp_price, total_mrp_price, discount_amt, total_amount, order_status, delivery_status, created, updated, created_by, updated_by, reason) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -479,7 +479,7 @@ public class CustomerTransactionProductDAO {
 			ps.setString(21, strDeliveryStatus);
 			ps.setString(22, strCreated);
 			ps.setString(23, strUpdated);
-			ps.setString(24, "");
+			ps.setString(24, loginUserName);
 			ps.setString(25, "");
 			ps.setString(26, "");
 			

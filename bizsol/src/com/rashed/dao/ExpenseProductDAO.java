@@ -298,15 +298,16 @@ public class ExpenseProductDAO {
 	}
 	
 	// set requisition_product order_status='A' based on requisition_multi id [S]
-	public void approveByMainExpense(String expense_id, String date_time){
+	public void approveByMainExpense(String expense_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_product set order_status=?, updated=? where expense_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE expense_product set order_status=?, updated=?, updated_by=? where expense_id=? and date_time=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -331,15 +332,16 @@ public class ExpenseProductDAO {
 	}
 	// set requisition_product order_status='A' based on requisition_multi id [E]
 	
-	public void expenseApproveByMainExpense(String expense_id, String date_time){
+	public void expenseApproveByMainExpense(String expense_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=? where expense_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=?, updated_by=? where expense_id=? and date_time=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -394,15 +396,16 @@ public class ExpenseProductDAO {
 		}
 	}
 	
-	public void expenseCaneclByMainExpense(String expense_id, String date_time){
+	public void expenseCaneclByMainExpense(String expense_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=? where expense_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=?, updated_by=? where expense_id=? and date_time=?");
 			
 			ps.setString(1, "C");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -427,16 +430,17 @@ public class ExpenseProductDAO {
 	}
 	
 	// delivery return from sales product screen [S]
-	public void expenseCancelByExpenseProduct(String expense_product_id, String expense_id, String date_time){
+	public void expenseCancelByExpenseProduct(String expense_product_id, String expense_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=? where expense_product_id=? and expense_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE expense_product set expense_status=?, updated=?, updated_by=? where expense_product_id=? and expense_id=? and date_time=?");
 			
 			ps.setString(1, "C");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_product_id);
-			ps.setString(4, expense_id);
-			ps.setString(5, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_product_id);
+			ps.setString(5, expense_id);
+			ps.setString(6, date_time);
 			
 			ps.executeUpdate();		
 			

@@ -113,6 +113,9 @@ public class RequisitionMultiController extends HttpServlet {
 			String requisition_id = request.getParameter("requisition_id");
 			String date_time = rmdao.getSelectedOtherID(requisition_id).getDate_time();
 			String strOrderStatus = rmdao.getSelectedOtherID(requisition_id).getOrder_status();
+			// set loginUserName for track [S]
+			String loginUserName = (String) session.getAttribute("loginUserName");
+			// set loginUserName for track [E]
 			
 			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("C")) {
 				rmdao.approve(requisition_id);
@@ -121,11 +124,17 @@ public class RequisitionMultiController extends HttpServlet {
 				// set requisition_product order_status='A' based on requisition_multi id [E]
 				
 				// requisition_multi to sales_main [S]
-				smmdao.requisitionMultiToSalesMain(requisition_id, date_time);
+				// set loginUserName for track [S]
+				//smmdao.requisitionMultiToSalesMain(requisition_id, date_time);
+				smmdao.requisitionMultiToSalesMain(requisition_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				// requisition_multi to sales_main [E]
 
 				// for insert into sales_product one by one from a list based on requisition_product id and date time [S]
-				rpdao.getRequisitionProductToSalesProduct(requisition_id, date_time);
+				// set loginUserName for track [S]
+				//rpdao.getRequisitionProductToSalesProduct(requisition_id, date_time);
+				rpdao.getRequisitionProductToSalesProduct(requisition_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				//spdao.requisitionProductToSalesProduct(requisition_id, date_time);
 				// for insert into sales_product one by one from a list based on requisition_product id and date time [E]
 				/*sdao.requisitionToSales(requisition_id);

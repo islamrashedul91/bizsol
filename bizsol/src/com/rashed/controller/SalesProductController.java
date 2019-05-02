@@ -74,6 +74,10 @@ public class SalesProductController extends HttpServlet {
 		session.setAttribute("action", action);
 		// for set the action in session [E]
 		
+		// set loginUserName for track [S]
+		String loginUserName = (String) session.getAttribute("loginUserName");
+		// set loginUserName for track [E]
+		
 		if(action.equalsIgnoreCase("delete")){
 			String sales_product_id = request.getParameter("sales_product_id");
 			String strSales = spdao.getSelectedOtherID(sales_product_id).getSales_id();
@@ -192,18 +196,30 @@ public class SalesProductController extends HttpServlet {
 			
 			if (strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
 				
-				spdao.deliveryReturnBySalesProduct(sales_product_id, strRequisition, date_time);
+				// set loginUserName for track [S]
+				//spdao.deliveryReturnBySalesProduct(sales_product_id, strRequisition, date_time);
+				spdao.deliveryReturnBySalesProduct(sales_product_id, strRequisition, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				String strTransactionID = ctmdao.getCustomerTransactionMainByIdDateTime(strRequisition, date_time).getTransaction_id();
 				if(strTransactionID == null || strTransactionID.equals("")){
-					ctmdao.productSalesMainToCustomerTransactionMain(strRequisition, date_time);
+					// set loginUserName for track [S]
+					//ctmdao.productSalesMainToCustomerTransactionMain(strRequisition, date_time);
+					ctmdao.productSalesMainToCustomerTransactionMain(strRequisition, date_time, loginUserName);
+					// set loginUserName for track [E]
 				} else if(strTransactionID != null && !strTransactionID.equals("")){
-					ctmdao.returnTotalAmount(strRequisition, date_time);
+					// set loginUserName for track [S]
+					//ctmdao.returnTotalAmount(strRequisition, date_time);
+					ctmdao.returnTotalAmount(strRequisition, date_time, loginUserName);
+					// set loginUserName for track [E]
 				}
 				//ctmdao.productSalesMainToCustomerTransactionMain(strRequisition, date_time);
 				
 				//spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time);
-				spdao.salesProductToCustomerTransactionProduct(sales_product_id, strRequisition, date_time);
+				// set loginUserName for track [S]
+				//spdao.salesProductToCustomerTransactionProduct(sales_product_id, strRequisition, date_time);
+				spdao.salesProductToCustomerTransactionProduct(sales_product_id, strRequisition, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				//spdao.getProdcutIdForStockUpdate(strRequisition, date_time);
 				pdao.returnStockUpdate(strProduct, intOrderQuantity);

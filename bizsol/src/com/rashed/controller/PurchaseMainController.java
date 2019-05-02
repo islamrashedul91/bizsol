@@ -108,6 +108,10 @@ public class PurchaseMainController extends HttpServlet {
 		session.setAttribute("action", action);
 		// for set the action in session [E]
 		
+		// set loginUserName for track [S]
+		String loginUserName = (String) session.getAttribute("loginUserName");
+		// set loginUserName for track [E]
+		
 		if(action.equalsIgnoreCase("delete")){
 			String purchase_id = request.getParameter("purchase_id");
 			String strPurchaseType = pmdao.getSelectedOtherID(purchase_id).getPurchase_type();
@@ -175,9 +179,15 @@ public class PurchaseMainController extends HttpServlet {
 			String strOrderStatus = pmdao.getSelectedOtherID(purchase_id).getOrder_status();
 			
 			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("C")) {
-				pmdao.approve(purchase_id);
+				// set loginUserName for track [S]
+				//pmdao.approve(purchase_id);
+				pmdao.approve(purchase_id, loginUserName);
+				// set loginUserName for track [E]
 				// set sales_product order_status='S' based on sales_main id [S]
-				ppdao.approveByMainPurchase(purchase_id, date_time);
+				// set loginUserName for track [S]
+				//ppdao.approveByMainPurchase(purchase_id, date_time);
+				ppdao.approveByMainPurchase(purchase_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				// set sales_product order_status='S' based on sales_main id [E]
 				
 				// requisition_multi to sales_main [S]
@@ -220,9 +230,13 @@ public class PurchaseMainController extends HttpServlet {
 			double doubleTotalAmount = pmdao.getSelectedOtherID(purchase_id).getTotal_amount();
 
 			if (strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C")) {
-				pmdao.deliveryApprove(purchase_id);
+				// set loginUserName for track [S]
+				/*pmdao.deliveryApprove(purchase_id);
+				ppdao.deliveryApproveByMainPurchase(purchase_id, date_time);*/
+				pmdao.deliveryApprove(purchase_id, loginUserName);
 				
-				ppdao.deliveryApproveByMainPurchase(purchase_id, date_time);
+				ppdao.deliveryApproveByMainPurchase(purchase_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				//pdao.returnStockUpdate(strProduct, intOrderQuantity);
 				ppdao.getProdcutIdForStockUpdate(purchase_id, date_time);
@@ -309,19 +323,32 @@ public class PurchaseMainController extends HttpServlet {
 			double doubleTotalAmount = pmdao.getSelectedOtherID(purchase_id).getTotal_amount();
 			
 			if (strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
-				pmdao.deliveryReturn(purchase_id);
+				// set loginUserName for track [S]
+				/*pmdao.deliveryReturn(purchase_id);
+				ppdao.deliveryReturnByMainPurchase(purchase_id, date_time);*/
+				pmdao.deliveryReturn(purchase_id, loginUserName);
 				
-				ppdao.deliveryReturnByMainPurchase(purchase_id, date_time);
+				ppdao.deliveryReturnByMainPurchase(purchase_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				//tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
 				String strTransactionID = tmdao.getTransactionMainByIdDateTime(purchase_id, date_time).getTransaction_id();
 				if(strTransactionID == null || strTransactionID.equals("")){
-					tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
+					// set loginUserName for track [S]
+					//tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
+					tmdao.purchaseMainToTransactionMain(purchase_id, date_time, loginUserName);
+					// set loginUserName for track [E]
 				} else if(strTransactionID != null && !strTransactionID.equals("")){
-					tmdao.returnTotalAmount(purchase_id, date_time);
+					// set loginUserName for track [S]
+					//tmdao.returnTotalAmount(purchase_id, date_time);
+					tmdao.returnTotalAmount(purchase_id, date_time, loginUserName);
+					// set loginUserName for track [E]
 				}
 				
-				ppdao.getPurchaseProductToTransactionProduct(purchase_id, date_time);
+				// set loginUserName for track [S]
+				//ppdao.getPurchaseProductToTransactionProduct(purchase_id, date_time);
+				ppdao.getPurchaseProductToTransactionProduct(purchase_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				/*ctmdao.salesMainToCustomerTransactionMain(purchase_id, date_time);
 				
 				spdao.getSalesProductToCustomerTransactionProduct(purchase_id, date_time);

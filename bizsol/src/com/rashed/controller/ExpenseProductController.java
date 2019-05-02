@@ -1,6 +1,7 @@
 package com.rashed.controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
-import com.google.zxing.WriterException;
 
+import com.google.zxing.WriterException;
 import com.rashed.model.ExpenseMain;
 import com.rashed.dao.ExpenseMainDAO;
 import com.rashed.model.ExpenseProduct;
@@ -46,6 +47,10 @@ public class ExpenseProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("action", action);
 		// for set the action in session [E]
+		
+		// set loginUserName for track [S]
+		String loginUserName = (String) session.getAttribute("loginUserName");
+		// set loginUserName for track [E]
 		
 		if(action.equalsIgnoreCase("delete")){
 			String expense_product_id = request.getParameter("expense_product_id");
@@ -148,7 +153,10 @@ public class ExpenseProductController extends HttpServlet {
 			
 			if (strOrderStatus.equals("A") && !strExpenseStatus.equals("A") && !strExpenseStatus.equals("C") && !strExpenseStatus.equals("R")) {
 				
-				epdao.expenseCancelByExpenseProduct(expense_product_id, strExpenseId, date_time);
+				// set loginUserName for track [S]
+				//epdao.expenseCancelByExpenseProduct(expense_product_id, strExpenseId, date_time);
+				epdao.expenseCancelByExpenseProduct(expense_product_id, strExpenseId, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				/*String strTransactionID = ctmdao.getCustomerTransactionMainByIdDateTime(strPurchaseId, date_time).getTransaction_id();
 				if(strTransactionID == null || strTransactionID.equals("")){

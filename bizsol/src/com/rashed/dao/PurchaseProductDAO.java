@@ -312,15 +312,16 @@ public class PurchaseProductDAO {
 	}
 	
 	// set requisition_product order_status='A' based on requisition_multi id [S]
-	public void approveByMainPurchase(String purchase_id, String date_time){
+	public void approveByMainPurchase(String purchase_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_product set order_status=?, updated=? where purchase_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE purchase_product set order_status=?, updated=?, updated_by=? where purchase_id=? and date_time=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -345,15 +346,16 @@ public class PurchaseProductDAO {
 	}
 	// set requisition_product order_status='A' based on requisition_multi id [E]
 	
-	public void deliveryApproveByMainPurchase(String purchase_id, String date_time){
+	public void deliveryApproveByMainPurchase(String purchase_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=? where purchase_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=?, updated_by=? where purchase_id=? and date_time=?");
 			
 			ps.setString(1, "D");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -408,15 +410,16 @@ public class PurchaseProductDAO {
 		}
 	}
 	
-	public void deliveryReturnByMainPurchase(String purchase_id, String date_time){
+	public void deliveryReturnByMainPurchase(String purchase_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=? where purchase_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=?, updated_by=? where purchase_id=? and date_time=?");
 			
 			ps.setString(1, "R");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -441,16 +444,17 @@ public class PurchaseProductDAO {
 	}
 	
 	// delivery return from sales product screen [S]
-	public void deliveryReturnByPurchaseProduct(String purchase_product_id, String purchase_id, String date_time){
+	public void deliveryReturnByPurchaseProduct(String purchase_product_id, String purchase_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=? where purchase_product_id=? and purchase_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE purchase_product set delivery_status=?, updated=?, updated_by=? where purchase_product_id=? and purchase_id=? and date_time=?");
 			
 			ps.setString(1, "R");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_product_id);
-			ps.setString(4, purchase_id);
-			ps.setString(5, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_product_id);
+			ps.setString(5, purchase_id);
+			ps.setString(6, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -1152,7 +1156,7 @@ public class PurchaseProductDAO {
 	// after delivery  approve insert into customer_purchase_product one by one from a list based on sales_product id and date time [E]
 	
 	// after delivery  return insert into transaction_product one by one from a list based on purchase_product id and date time [S]
-	public PurchaseProduct getPurchaseProductToTransactionProduct(String purchase_id, String date_time){
+	public PurchaseProduct getPurchaseProductToTransactionProduct(String purchase_id, String date_time, String loginUserName){
 		PurchaseProduct sp = new PurchaseProduct();
 		
 		try{
@@ -1196,7 +1200,7 @@ public class PurchaseProductDAO {
 				tpdao.purchaseProductToTransactionProduct(strPurchaseProductId, strPurchaseId, strType, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, ratePerPieces, ratePerBox, strOrderPack, 
 														intOrderQuantity, tpPrice, doubleTotalTpPrice, doubleDiscount, doubleTotalAmount, strOrderStatus,
-														strDeliveryStatus, strCreated, strUpdated, strCreatedBy, strUpdatedBy);
+														strDeliveryStatus, strCreated, strUpdated, loginUserName, strUpdatedBy);
 				
 			}
 		} catch (Exception e){
@@ -1230,7 +1234,7 @@ public class PurchaseProductDAO {
 	// after delivery  return insert into transaction_product one by one from a list based on purchase_product id and date time [E]
 	
 	// after delivery  return insert into customer_transaction_product based on sales_product id, Requisition_id and date time [S]
-	public PurchaseProduct purchaseProductToTransactionProduct(String purchase_product_id, String purchase_id, String date_time){
+	public PurchaseProduct purchaseProductToTransactionProduct(String purchase_product_id, String purchase_id, String date_time, String loginUserName){
 		PurchaseProduct pp = new PurchaseProduct();
 		
 		try{
@@ -1275,7 +1279,7 @@ public class PurchaseProductDAO {
 				tpdao.purchaseProductToTransactionProduct(strPurchaseProductId, strPurchaseId, strType, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, ratePerPieces, ratePerBox, strOrderPack, 
 														intOrderQuantity, tpPrice, doubleTotalTpPrice, doubleDiscount, doubleTotalAmount, strOrderStatus,
-														strDeliveryStatus, strCreated, strUpdated, strCreatedBy, strUpdatedBy);
+														strDeliveryStatus, strCreated, strUpdated, loginUserName, strUpdatedBy);
 				
 			}
 		} catch (Exception e){

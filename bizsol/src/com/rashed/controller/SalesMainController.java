@@ -89,6 +89,10 @@ public class SalesMainController extends HttpServlet {
 		session.setAttribute("action", action);
 		// for set the action in session [E]
 		
+		// set loginUserName for track [S]
+		String loginUserName = (String) session.getAttribute("loginUserName");
+		// set loginUserName for track [E]
+		
 		if(action.equalsIgnoreCase("delete")){
 			String sales_id = request.getParameter("sales_id");
 			String strSalesType = smmdao.getSelectedOtherID(sales_id).getSales_type();
@@ -163,9 +167,16 @@ public class SalesMainController extends HttpServlet {
 			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();
 			
 			if (!strOrderStatus.equals("S") && !strOrderStatus.equals("C")) {
-				smmdao.approve(sales_id);
+				// set loginUserName for track [S]
+				//smmdao.approve(sales_id);
+				smmdao.approve(sales_id, loginUserName);
+				// set loginUserName for track [E]
+				
 				// set sales_product order_status='S' based on sales_main id [S]
-				spdao.approveByMainSales(requisition_id, date_time);
+				// set loginUserName for track [S]
+				//spdao.approveByMainSales(requisition_id, date_time);
+				spdao.approveByMainSales(requisition_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				// set sales_product order_status='S' based on sales_main id [E]
 				
 				// for update stock one by one from manual sales list based on requisition_id and date_time [S]
@@ -217,13 +228,20 @@ public class SalesMainController extends HttpServlet {
 			double doubleTotalAmount = smmdao.getSelectedOtherID(sales_id).getTotal_amount();
 
 			if (strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C")) {
-				smmdao.deliveryApprove(sales_id);
-				
+				// set loginUserName for track [S]
+				/*smmdao.deliveryApprove(sales_id);
 				spdao.deliveryApproveByMainSales(sales_id, strRequisition, date_time);
-				
 				cpmdao.salesMainToCustomerPurchaseMain(strRequisition, date_time);
+				spdao.getSalesProductToCustomerPurchaseProduct(strRequisition, date_time);*/
 				
-				spdao.getSalesProductToCustomerPurchaseProduct(strRequisition, date_time);
+				smmdao.deliveryApprove(sales_id, loginUserName);
+				
+				spdao.deliveryApproveByMainSales(sales_id, strRequisition, date_time, loginUserName);
+				
+				cpmdao.salesMainToCustomerPurchaseMain(strRequisition, date_time, loginUserName);
+				
+				spdao.getSalesProductToCustomerPurchaseProduct(strRequisition, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				// for insert data into account table [S]
 				adao.balanceUpdate(strFromAccount, doubleTotalAmount);
@@ -298,19 +316,32 @@ public class SalesMainController extends HttpServlet {
 			double doubleTotalAmount = smmdao.getSelectedOtherID(sales_id).getTotal_amount();
 			
 			if (strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
-				smmdao.deliveryReturn(sales_id);
+				// set loginUserName for track [S]
+				/*smmdao.deliveryReturn(sales_id);
+				spdao.deliveryReturnByMainSales(sales_id, strRequisition, date_time);*/
+				smmdao.deliveryReturn(sales_id, loginUserName);
 				
-				spdao.deliveryReturnByMainSales(sales_id, strRequisition, date_time);
+				spdao.deliveryReturnByMainSales(sales_id, strRequisition, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				//ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
 				String strTransactionID = ctmdao.getCustomerTransactionMainByIdDateTime(strRequisition, date_time).getTransaction_id();
 				if(strTransactionID == null || strTransactionID.equals("")){
-					ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
+					// set loginUserName for track [S]
+					//ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
+					ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time, loginUserName);
+					// set loginUserName for track [E]
 				} else if(strTransactionID != null && !strTransactionID.equals("")){
-					ctmdao.returnTotalAmount(strRequisition, date_time);
+					// set loginUserName for track [S]
+					//ctmdao.returnTotalAmount(strRequisition, date_time);
+					ctmdao.returnTotalAmount(strRequisition, date_time, loginUserName);
+					// set loginUserName for track [E]
 				}
 				
-				spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time);
+				// set loginUserName for track [S]
+				//spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time);
+				spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				spdao.getProdcutIdForStockUpdate(strRequisition, date_time);
 				

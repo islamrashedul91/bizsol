@@ -722,7 +722,7 @@ public class RequisitionProductDAO {
 	// for update stock one by one from a list based on requisition_multi id and date_time [E]
 	
 	// after approve insert into sales_product one by one from a list based on requisition_product id and date time [S]
-	public RequisitionProduct getRequisitionProductToSalesProduct(String requisition_id, String date_time){
+	public RequisitionProduct getRequisitionProductToSalesProduct(String requisition_id, String date_time, String loginUserName){
 		RequisitionProduct rp = new RequisitionProduct();
 		
 		try{
@@ -763,7 +763,7 @@ public class RequisitionProductDAO {
 				spdao.requisitionProductToSalesProduct(strRequisitionProductId, strRequisitionId, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, strOrderPack, intOrderQuantity, doubleMrp, 
 														doubleTotalMrp, doubleDiscount, doubleTotalAmount, strOrderStatus, strDeliveryStatus,
-														strCreated, strUpdated);
+														strCreated, strUpdated, loginUserName);
 				
 			}
 		} catch (Exception e){

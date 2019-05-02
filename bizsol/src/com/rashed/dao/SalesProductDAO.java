@@ -315,16 +315,17 @@ public class SalesProductDAO {
 	}
 	
 	// set requisition_product order_status='A' based on requisition_multi id [S]
-	public void approveByMainSales(String requisition_id, String date_time){
+	public void approveByMainSales(String requisition_id, String date_time, String loginUserName){
 		try{
 			//PreparedStatement ps = con.prepareStatement("UPDATE sales_product set order_status=?, updated=? where requisition_id=? and date_time=?");
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE sales_product set order_status=?, updated=? where requisition_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE sales_product set order_status=?, updated=?, updated_by=? where requisition_id=? and date_time=?");
 			
 			ps.setString(1, "S");
 			ps.setString(2, strDate);
-			ps.setString(3, requisition_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, requisition_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -349,17 +350,18 @@ public class SalesProductDAO {
 	}
 	// set requisition_product order_status='A' based on requisition_multi id [E]
 	
-	public void deliveryApproveByMainSales(String sales_id, String requisition_id, String date_time){
+	public void deliveryApproveByMainSales(String sales_id, String requisition_id, String date_time, String loginUserName){
 		try{
 			//PreparedStatement ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=? where requisition_id=? and date_time=?");
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=? where sales_id=? and requisition_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=?, updated_by=? where sales_id=? and requisition_id=? and date_time=?");
 			
 			ps.setString(1, "D");
 			ps.setString(2, strDate);
-			ps.setString(3, sales_id);
-			ps.setString(4, requisition_id);
-			ps.setString(5, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, sales_id);
+			ps.setString(5, requisition_id);
+			ps.setString(6, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -415,17 +417,18 @@ public class SalesProductDAO {
 		}
 	}
 	
-	public void deliveryReturnByMainSales(String sales_id, String requisition_id, String date_time){
+	public void deliveryReturnByMainSales(String sales_id, String requisition_id, String date_time, String loginUserName){
 		try{
 			//PreparedStatement ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=? where requisition_id=? and date_time=?");
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=? where sales_id=? and requisition_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=?, updated_by=? where sales_id=? and requisition_id=? and date_time=?");
 			
 			ps.setString(1, "R");
 			ps.setString(2, strDate);
-			ps.setString(3, sales_id);
-			ps.setString(4, requisition_id);
-			ps.setString(5, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, sales_id);
+			ps.setString(5, requisition_id);
+			ps.setString(6, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -450,16 +453,17 @@ public class SalesProductDAO {
 	}
 	
 	// delivery return from sales product screen [S]
-	public void deliveryReturnBySalesProduct(String sales_product_id, String requisition_id, String date_time){
+	public void deliveryReturnBySalesProduct(String sales_product_id, String requisition_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=? where sales_product_id=? and requisition_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE sales_product set delivery_status=?, updated=?, updated_by=? where sales_product_id=? and requisition_id=? and date_time=?");
 			
 			ps.setString(1, "R");
 			ps.setString(2, strDate);
-			ps.setString(3, sales_product_id);
-			ps.setString(4, requisition_id);
-			ps.setString(5, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, sales_product_id);
+			ps.setString(5, requisition_id);
+			ps.setString(6, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -1133,7 +1137,7 @@ public class SalesProductDAO {
 												String strProductName, String strPackType,String strPackSize, int intPieces, String strBonusId,
 												String strBonusName, String strOrderPack, int intOrderQuantity, double doubleMrp, double doubleTotalMrp,
 												double doubleDiscount, double doubleTotalAmount, String strOrderStatus, String strDeliveryStatus,
-												String strCreated, String strUpdated){
+												String strCreated, String strUpdated, String loginUserName){
 		try{
 			//PreparedStatement ps = con.prepareStatement("INSERT INTO sales_product(sales_product_id, sales_id, sales_type, requisition_product_id, requisition_id, date_time, product_id, product_name, pack_type, pack_size, piceces, bonus_id, bonus_name, order_pack, order_quantity, mrp_price, total_mrp_price, discount_amt, total_amount, order_status, delivery_status, created, updated, created_by, updated_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			con  = DbUtil.getConnection();
@@ -1166,7 +1170,7 @@ public class SalesProductDAO {
 			ps.setString(21, strDeliveryStatus);
 			ps.setString(22, strCreated);
 			ps.setString(23, strUpdated);
-			ps.setString(24, "");
+			ps.setString(24, loginUserName);
 			ps.setString(25, "");
 			
 			ps.executeUpdate();
@@ -1193,7 +1197,7 @@ public class SalesProductDAO {
 	// after approve insert into sales_product one by one from a list based on requisition_product id and date time [E]
 	
 	// after delivery  approve insert into customer_purchase_product one by one from a list based on sales_product id and date time [S]
-	public SalesProduct getSalesProductToCustomerPurchaseProduct(String requisition_id, String date_time){
+	public SalesProduct getSalesProductToCustomerPurchaseProduct(String requisition_id, String date_time, String loginUserName){
 		SalesProduct sp = new SalesProduct();
 		
 		try{
@@ -1236,7 +1240,7 @@ public class SalesProductDAO {
 				cppdao.SalesProductToCustomerPurchaseProduct(strType, strRequisitionProductId, strRequisitionId, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, strOrderPack, intOrderQuantity, doubleMrp, 
 														doubleTotalMrp, doubleDiscount, doubleTotalAmount, strOrderStatus, strDeliveryStatus,
-														strCreated, strUpdated);
+														strCreated, strUpdated, loginUserName);
 				
 			}
 		} catch (Exception e){
@@ -1270,7 +1274,7 @@ public class SalesProductDAO {
 	// after delivery  approve insert into customer_purchase_product one by one from a list based on sales_product id and date time [E]
 	
 	// after delivery  return insert into customer_transaction_product one by one from a list based on sales_product id and date time [S]
-	public SalesProduct getSalesProductToCustomerTransactionProduct(String requisition_id, String date_time){
+	public SalesProduct getSalesProductToCustomerTransactionProduct(String requisition_id, String date_time, String loginUserName){
 		SalesProduct sp = new SalesProduct();
 		
 		try{
@@ -1313,7 +1317,7 @@ public class SalesProductDAO {
 				ctpdao.SalesProductToCustomerTransactionProduct(strType, strRequisitionProductId, strRequisitionId, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, strOrderPack, intOrderQuantity, doubleMrp, 
 														doubleTotalMrp, doubleDiscount, doubleTotalAmount, strOrderStatus, strDeliveryStatus,
-														strCreated, strUpdated);
+														strCreated, strUpdated, loginUserName);
 				
 			}
 		} catch (Exception e){
@@ -1347,7 +1351,7 @@ public class SalesProductDAO {
 	// after delivery  return insert into customer_transaction_product one by one from a list based on sales_product id and date time [E]
 	
 	// after delivery  return insert into customer_transaction_product based on sales_product id, Requisition_id and date time [S]
-	public SalesProduct salesProductToCustomerTransactionProduct(String sales_product_id, String requisition_id, String date_time){
+	public SalesProduct salesProductToCustomerTransactionProduct(String sales_product_id, String requisition_id, String date_time, String loginUserName){
 		SalesProduct sp = new SalesProduct();
 		
 		try{
@@ -1391,7 +1395,7 @@ public class SalesProductDAO {
 				ctpdao.SalesProductToCustomerTransactionProduct(strType, strRequisitionProductId, strRequisitionId, strDateTime, strProductId, strProductName, strPackType,
 														strPackSize, intPieces, strBonusId,strBonusName, strOrderPack, intOrderQuantity, doubleMrp, 
 														doubleTotalMrp, doubleDiscount, doubleTotalAmount, strOrderStatus, strDeliveryStatus,
-														strCreated, strUpdated);
+														strCreated, strUpdated, loginUserName);
 				
 			}
 		} catch (Exception e){

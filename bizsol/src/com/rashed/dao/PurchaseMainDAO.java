@@ -224,14 +224,15 @@ public class PurchaseMainDAO {
 		}
 	}
 	
-	public void approve(String purchase_id){
+	public void approve(String purchase_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_main set order_status=?, updated=? where purchase_id=?");
+			ps = con.prepareStatement("UPDATE purchase_main set order_status=?, updated=?, updated_by=? where purchase_id=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
 			
 			ps.executeUpdate();		
 			
@@ -255,14 +256,15 @@ public class PurchaseMainDAO {
 		}
 	}
 	
-	public void deliveryApprove(String purchase_id){
+	public void deliveryApprove(String purchase_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_main set delivery_status=?, updated=? where purchase_id=?");
+			ps = con.prepareStatement("UPDATE purchase_main set delivery_status=?, updated=?, updated_by=? where purchase_id=?");
 			
 			ps.setString(1, "D");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
 			
 			ps.executeUpdate();		
 			
@@ -286,14 +288,15 @@ public class PurchaseMainDAO {
 		}
 	}
 	
-	public void deliveryReturn(String purchase_id){
+	public void deliveryReturn(String purchase_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE purchase_main set delivery_status=?, updated=? where purchase_id=?");
+			ps = con.prepareStatement("UPDATE purchase_main set delivery_status=?, updated=?, updated_by=? where purchase_id=?");
 			
 			ps.setString(1, "R");
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
 			
 			ps.executeUpdate();		
 			

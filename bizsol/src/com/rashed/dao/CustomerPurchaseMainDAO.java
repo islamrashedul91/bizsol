@@ -626,7 +626,7 @@ public class CustomerPurchaseMainDAO {
 	// for insert into requisition_multi total_amount from Requisition Product sum total amount [S]
 	
 	// after approve record copy from requisition to sales [S]
-	public void salesMainToCustomerPurchaseMain(String requisition_id, String date_time){
+	public void salesMainToCustomerPurchaseMain(String requisition_id, String date_time, String loginUserName){
 		try{
 			//PreparedStatement ps = con.prepareStatement("INSERT INTO customer_purchase_main(purchase_id, purchase_type, requisition_id, date_time, customer_id, customer_name, mobile, needed_date_time, from_account_id, to_account_id, salesman_id, total_amount, order_status, delivery_status, created, updated, created_by, updated_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			con  = DbUtil.getConnection();
@@ -652,7 +652,7 @@ public class CustomerPurchaseMainDAO {
 			ps.setString(14, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getDelivery_status());
 			ps.setString(15, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getCreated());
 			ps.setString(16, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getUpdated());
-			ps.setString(17, "");
+			ps.setString(17, loginUserName);
 			ps.setString(18, "");
 			
 			ps.executeUpdate();

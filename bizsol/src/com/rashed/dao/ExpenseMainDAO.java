@@ -221,14 +221,15 @@ public class ExpenseMainDAO {
 		}
 	}
 	
-	public void approve(String expense_id){
+	public void approve(String expense_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_main set order_status=?, updated=? where expense_id=?");
+			ps = con.prepareStatement("UPDATE expense_main set order_status=?, updated=?, updated_by=? where expense_id=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
 			
 			ps.executeUpdate();		
 			
@@ -252,14 +253,15 @@ public class ExpenseMainDAO {
 		}
 	}
 	
-	public void expenseApprove(String expense_id){
+	public void expenseApprove(String expense_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_main set expense_status=?, updated=? where expense_id=?");
+			ps = con.prepareStatement("UPDATE expense_main set expense_status=?, updated=?, updated_by=? where expense_id=?");
 			
 			ps.setString(1, "A");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
 			
 			ps.executeUpdate();		
 			
@@ -283,14 +285,15 @@ public class ExpenseMainDAO {
 		}
 	}
 	
-	public void expenseCancel(String expense_id){
+	public void expenseCancel(String expense_id, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE expense_main set expense_status=?, updated=? where expense_id=?");
+			ps = con.prepareStatement("UPDATE expense_main set expense_status=?, updated=?, updated_by=? where expense_id=?");
 			
 			ps.setString(1, "C");
 			ps.setString(2, strDate);
-			ps.setString(3, expense_id);
+			ps.setString(3, loginUserName);
+			ps.setString(4, expense_id);
 			
 			ps.executeUpdate();		
 			

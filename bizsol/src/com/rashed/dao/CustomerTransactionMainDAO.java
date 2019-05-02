@@ -376,7 +376,7 @@ public class CustomerTransactionMainDAO {
 	// selected other respective id during update [E]
 	
 	// after cancel/deliveryReturn record copy from sales to transaction [S]
-	public void salesMainToCustomerTransactionMain(String requisition_id, String date_time){
+	public void salesMainToCustomerTransactionMain(String requisition_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("INSERT INTO customer_transaction_main(transaction_id, transaction_type, requisition_id, date_time, customer_id, customer_name, mobile, needed_date_time, from_account_id, to_account_id, salesman_id, total_amount, order_status, delivery_status, created, updated, created_by, updated_by, reason) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -401,7 +401,7 @@ public class CustomerTransactionMainDAO {
 			ps.setString(14, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getDelivery_status());
 			ps.setString(15, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getCreated());
 			ps.setString(16, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getUpdated());
-			ps.setString(17, "");
+			ps.setString(17, loginUserName);
 			ps.setString(18, "");
 			ps.setString(19, "");
 			
@@ -427,18 +427,19 @@ public class CustomerTransactionMainDAO {
 		}
 	}
 	
-	public void returnTotalAmount(String requisition_id, String date_time){
+	public void returnTotalAmount(String requisition_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE customer_transaction_main set total_amount=?, updated=? where requisition_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE customer_transaction_main set total_amount=?, updated=?, updated_by=? where requisition_id=? and date_time=?");
 			
 			CustomerTransactionMainDAO ctmdao = new CustomerTransactionMainDAO();
 			
 			//ps.setDouble(1, spdao.sumTotalAmountBasedOnReturnStatus(requisition_id, date_time).getTotal_amount());
 			ps.setDouble(1, (ctmdao.getCustomerTransactionMainByIdDateTime(requisition_id, date_time).getTotal_amount() + spdao.sumTotalAmountBasedOnReturnStatus(requisition_id, date_time).getTotal_amount()));
 			ps.setString(2, strDate);
-			ps.setString(3, requisition_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, requisition_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -464,7 +465,7 @@ public class CustomerTransactionMainDAO {
 	// after cancel/deliveryReturn record copy from sales to transaction [E]
 	
 	// from sales product screen after cancel/deliveryReturn record copy from sales to transaction [ES
-	public void productSalesMainToCustomerTransactionMain(String requisition_id, String date_time){
+	public void productSalesMainToCustomerTransactionMain(String requisition_id, String date_time, String loginUserName){
 		try{
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("INSERT INTO customer_transaction_main(transaction_id, transaction_type, requisition_id, date_time, customer_id, customer_name, mobile, needed_date_time, from_account_id, to_account_id, salesman_id, total_amount, order_status, delivery_status, created, updated, created_by, updated_by, reason) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -492,7 +493,7 @@ public class CustomerTransactionMainDAO {
 			ps.setString(14, "R");
 			ps.setString(15, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getCreated());
 			ps.setString(16, smmdao.getSalesMainByIdDateTime(requisition_id, date_time).getUpdated());
-			ps.setString(17, "");
+			ps.setString(17, loginUserName);
 			ps.setString(18, "");
 			ps.setString(19, "");
 			

@@ -386,7 +386,7 @@ public class TransactionMainDAO {
 	// selected other respective id during update [E]
 	
 	// after cancel/deliveryReturn record copy from purchase to transaction [S]
-	public void purchaseMainToTransactionMain(String purchase_id, String date_time){
+	public void purchaseMainToTransactionMain(String purchase_id, String date_time, String loginUserName){
 		
 		try{
 			con  = DbUtil.getConnection();
@@ -412,7 +412,8 @@ public class TransactionMainDAO {
 			ps.setString(15, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getDelivery_status());
 			ps.setString(16, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated());
 			ps.setString(17, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getUpdated());
-			ps.setString(18, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated_by());
+			//ps.setString(18, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated_by());
+			ps.setString(18, loginUserName);
 			ps.setString(19, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getUpdated_by());
 			ps.setString(20, "");
 			
@@ -438,18 +439,19 @@ public class TransactionMainDAO {
 		}
 	}
 	
-	public void returnTotalAmount(String purchase_id, String date_time){
+	public void returnTotalAmount(String purchase_id, String date_time, String loginUserName){
 		
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE transaction_main set total_amount=?, updated=? where purchase_id=? and date_time=?");
+			ps = con.prepareStatement("UPDATE transaction_main set total_amount=?, updated=?, updated_by=? where purchase_id=? and date_time=?");
 			
 			TransactionMainDAO tmdao = new TransactionMainDAO();
 			
 			ps.setDouble(1, (tmdao.getTransactionMainByIdDateTime(purchase_id, date_time).getTotal_amount() + ppdao.sumTotalAmountBasedOnReturnStatus(purchase_id, date_time).getTotal_amount()));
 			ps.setString(2, strDate);
-			ps.setString(3, purchase_id);
-			ps.setString(4, date_time);
+			ps.setString(3, loginUserName);
+			ps.setString(4, purchase_id);
+			ps.setString(5, date_time);
 			
 			ps.executeUpdate();		
 			
@@ -475,7 +477,7 @@ public class TransactionMainDAO {
 	// after cancel/deliveryReturn record copy from purchase to transaction [E]
 	
 	// from purchase product screen after cancel/deliveryReturn record copy from purchase to transaction [S]
-	public void productPurchaseMainToTransactionMain(String purchase_id, String date_time){
+	public void productPurchaseMainToTransactionMain(String purchase_id, String date_time, String loginUserName){
 		
 		try{
 			con  = DbUtil.getConnection();
@@ -503,7 +505,8 @@ public class TransactionMainDAO {
 			ps.setString(15, "R");
 			ps.setString(16, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated());
 			ps.setString(17, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getUpdated());
-			ps.setString(18, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated_by());
+			//ps.setString(18, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getCreated_by());
+			ps.setString(18, loginUserName);
 			ps.setString(19, pmdao.getPurchaseMainByIdDateTime(purchase_id, date_time).getUpdated_by());
 			ps.setString(20, "");
 			

@@ -153,13 +153,37 @@ String strDate = formatter.format(date);
 			}
 			%>
 			
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
 			<label for="field24"><span>Created By </span>
-				<input type="text" class="input-field-60" name="created_by" id="created_by" value="${salesRate.created_by}"  maxlength=40 size=40 /> 
+				<input type="text" class="input-field" readonly="readonly" name="created_by" id="created_by" value="${loginUserName}"  maxlength=40 size=40 /> 
 			</label>
+			<%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<label for="field24"><span>Created By </span>
+				<input type="text" class="input-field" readonly="readonly" name="created_by" id="created_by" value="${salesRate.created_by}"  maxlength=40 size=40 /> 
+			</label>
+			<%
+			}
+			%>
 			
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
 			<label for="field25"><span>Updated By </span>
-				<input type="text" class="input-field-60" name="updated_by" id="updated_by" value="${salesRate.updated_by}"  maxlength=40 size=40 /> 
+				<input type="text" class="input-field" readonly="readonly" name="updated_by" id="updated_by" value="${salesRate.updated_by}"  maxlength=40 size=40 /> 
 			</label>
+			<%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<label for="field25"><span>Updated By </span>
+				<input type="text" class="input-field" readonly="readonly" name="updated_by" id="updated_by" value="${loginUserName}"  maxlength=40 size=40 /> 
+			</label>
+			<%
+			}
+			%>
 			
 			<br><br>
 			<label><span></span>

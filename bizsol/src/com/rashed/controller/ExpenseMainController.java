@@ -11,14 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.zxing.WriterException;
 
+import com.google.zxing.WriterException;
 import com.rashed.dao.AccountDAO;
 import com.rashed.dao.CompanyDAO;
 import com.rashed.dao.DayWiseAccountBalanceDAO;
 import com.rashed.dao.ProfitLossDAO;
 import com.rashed.dao.OwnerInfoDAO;
-
 import com.rashed.model.ExpenseMain;
 import com.rashed.dao.ExpenseMainDAO;
 import com.rashed.dao.ExpenseProductDAO;
@@ -63,6 +62,10 @@ public class ExpenseMainController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("action", action);
 		// for set the action in session [E]
+		
+		// set loginUserName for track [S]
+		String loginUserName = (String) session.getAttribute("loginUserName");
+		// set loginUserName for track [E]
 		
 		if(action.equalsIgnoreCase("delete")){
 			String expense_id = request.getParameter("expense_id");
@@ -120,9 +123,13 @@ public class ExpenseMainController extends HttpServlet {
 			String strOrderStatus = emdao.getSelectedOtherID(expense_id).getOrder_status();
 			
 			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("C")) {
-				emdao.approve(expense_id);
+				// set loginUserName for track [S]
+				/*emdao.approve(expense_id);
+				epdao.approveByMainExpense(expense_id, date_time);*/
+				emdao.approve(expense_id, loginUserName);
 				
-				epdao.approveByMainExpense(expense_id, date_time);
+				epdao.approveByMainExpense(expense_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				message = "Expense" + expense_id + " Approved Successfully!!!";
 				request.setAttribute("success", message);
@@ -149,9 +156,13 @@ public class ExpenseMainController extends HttpServlet {
 			double doubleTotalAmount = emdao.getSelectedOtherID(expense_id).getTotal_amount();
 
 			if (strOrderStatus.equals("A") && !strExpenseStatus.equals("A") && !strExpenseStatus.equals("C")) {
-				emdao.expenseApprove(expense_id);
+				// set loginUserName for track [S]
+				/*emdao.expenseApprove(expense_id);
+				epdao.expenseApproveByMainExpense(expense_id, date_time);*/
+				emdao.expenseApprove(expense_id, loginUserName);
 				
-				epdao.expenseApproveByMainExpense(expense_id, date_time);
+				epdao.expenseApproveByMainExpense(expense_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				// for insert data into account table [S]
 				//adao.balanceUpdate(strFromAccount, doubleTotalAmount);
@@ -195,9 +206,13 @@ public class ExpenseMainController extends HttpServlet {
 			double doubleTotalAmount = emdao.getSelectedOtherID(expense_id).getTotal_amount();
 			
 			if (strOrderStatus.equals("A") && !strExpenseStatus.equals("A") && !strExpenseStatus.equals("C") && !strExpenseStatus.equals("R")) {
-				emdao.expenseCancel(expense_id);
+				// set loginUserName for track [S]
+				/*emdao.expenseCancel(expense_id);
+				epdao.expenseCaneclByMainExpense(expense_id, date_time);*/
+				emdao.expenseCancel(expense_id, loginUserName);
 				
-				epdao.expenseCaneclByMainExpense(expense_id, date_time);
+				epdao.expenseCaneclByMainExpense(expense_id, date_time, loginUserName);
+				// set loginUserName for track [E]
 				
 				message = "Expense " + expense_id + " Delivery Return !!!";
 				request.setAttribute("success", message);
